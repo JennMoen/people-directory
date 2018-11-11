@@ -4,11 +4,12 @@ export class Person {
   firstName: string;
   phone: string;
   knownAs: string;
+  imgUrl: string;
 
-  constructor(id, lastName, firstName, phone, knownAs) {
+  constructor(id, firstName, lastName, phone, knownAs) {
     this.id = id;
-    this.lastName = lastName;
     this.firstName = firstName;
+    this.lastName = lastName;
     this.phone = phone;
     this.knownAs = knownAs;
   }

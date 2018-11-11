@@ -20,8 +20,14 @@ export class PeopleService {
 
   private url = 'https://demo.iofficeconnect.com/external/api/rest/v2/users';
 
+  private imgQuery = '?selector=image(description,large,medium,name,original,small,smallSquare)';
+
   getPeople(): Observable<Array<any>> {
     return this.http.get<Array<any>>(this.url, httpOptions);
+  }
+
+  getPhotos(): Observable<Array<any>> {
+    return this.http.get<Array<any>>(this.url + this.imgQuery, httpOptions);
   }
 
   constructor(private http: HttpClient) { }
