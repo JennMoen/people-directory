@@ -1,25 +1,27 @@
-<div class="container">
-  <h2>Employee Directory</h2>
+<div class="container-fluid">
+  <div class="page-header">
+    <h2>Employee Directory</h2>
+  </div>
   <table class="table table-striped">
     <thead>
       <tr>
         <th>Photo</th>
         <th>First Name</th>
         <th>Last Name</th>
-        <th>Phone</th>
-        <th>Nickname</th>
+        <th>Job Title</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let person of people">
+        <a routerLink = "/personDetails/{{person.id}}">
         <td *ngIf='person.imgUrl; else noImage'><img src='{{person.imgUrl}}'></td>
         <ng-template #noImage>
           <td><img id='noImage' src='https://psychiatry.unm.edu/about/FacultyImages/Unknown-Male.jpg'></td>
         </ng-template>
+        </a>
         <td>{{person.firstName}}</td>
         <td>{{person.lastName}}</td>
-        <td>{{person.phone}}</td>
-        <td>{{person.knownAs}}</td>
+        <td>{{person.jobTitle}}</td>
       </tr>
     </tbody>
   </table>

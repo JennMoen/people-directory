@@ -18,6 +18,8 @@ const httpOptions = {
 })
 export class PeopleService {
 
+  public people: Person[];
+
   private url = 'https://demo.iofficeconnect.com/external/api/rest/v2/users';
 
   private imgQuery = '?selector=image(description,large,medium,name,original,small,smallSquare)';

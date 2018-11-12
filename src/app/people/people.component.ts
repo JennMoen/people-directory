@@ -16,9 +16,9 @@ export class PeopleComponent implements OnInit {
   getPeople() {
     return this.peopleService.getPeople()
     .subscribe(response => {
-      // console.log(response);
+      console.log(response);
       this.people = response.map(r => {
-        return new Person(r.id, r.firstName, r.lastName, r.phone, r.knownAs);
+        return new Person(r.id, r.firstName, r.lastName, r.phone, r.knownAs, r.jobTitle, r.email, r.color);
       });
       this.getPhotos();
       // console.log(this.people);
