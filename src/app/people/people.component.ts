@@ -10,6 +10,7 @@ import { PeopleService } from '../people.service';
 export class PeopleComponent implements OnInit {
 
  people: Person[];
+ selectedCriteria: string;
 
  backupImage: 'https://psychiatry.unm.edu/about/FacultyImages/Unknown-Male.jpg';
 
@@ -42,6 +43,15 @@ export class PeopleComponent implements OnInit {
 
   // allows user to page through employees
   loadNext(n: number, event) {
+    if (this.selectedCriteria !== undefined) {
+      this.peopleService.sortAndLoad(this.selectedCriteria, n)
+      .subscribe(response => {
+        this.people = response.map(r => {
+        return new Person(r.id, r.firstName, r.lastName, r.phone, r.knownAs, r.jobTitle, r.email, r.color);
+        });
+      this.getPhotos(n);
+      });
+    }
     const amount = event.path[0].innerHTML;
     return this.peopleService.loadNext(n)
     .subscribe(response => {
@@ -55,6 +65,7 @@ export class PeopleComponent implements OnInit {
   // basic sorting function for criteria user chooses to sort by
   // so far I don't have the photos hooked up to this
   sort(param: string) {
+    this.selectedCriteria = param;
     return this.peopleService.sort(param)
     .subscribe(response => {
       this.people = response.map(r => {

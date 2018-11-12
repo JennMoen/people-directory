@@ -40,7 +40,7 @@ export class PeopleService {
   }
 
   // this method worked at first but not after pagination was inserted--needs replaced
-  findPerson(id): Observable<object> {
+  findPerson(id) {
     return this.getPeople().pipe(map(data => data.filter(d => {
       return d.id === id;
       })
@@ -61,6 +61,11 @@ export class PeopleService {
 
   sort(criteria: string) {
     return this.http.get<Array<any>>(this.url + `?orderBy=${criteria}`, httpOptions);
+  }
+
+  // I know this is possibly redundant so it could be simplified
+  sortAndLoad(criteria: string, starts: number) {
+    return this.http.get<Array<any>>(this.url + `?orderBy=${criteria}&startAt=${starts}`, httpOptions);
   }
 
   // started refactoring here to try to create Person array in the service, not each individual component--not currently using this
