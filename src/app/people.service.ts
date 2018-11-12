@@ -28,14 +28,6 @@ export class PeopleService {
     return this.http.get<Array<any>>(this.url, httpOptions);
   }
 
-   populateList() {
-    return this.getPeople()
-    .pipe(map(data => data.map(r => {
-        return new Person(r.id, r.firstName, r.lastName, r.phone, r.knownAs, r.jobTitle, r.email, r.color);
-      }))
-    );
-  }
-
   getPhotos(): Observable<Array<any>> {
     return this.http.get<Array<any>>(this.url + this.imgQuery, httpOptions);
   }
@@ -43,8 +35,31 @@ export class PeopleService {
   findPerson(id): Observable<object> {
     return this.getPeople().pipe(map(data => data.filter(d => {
       return d.id === id;
-    })
+      })
     ));
+  }
+
+  getPersonPhoto(id) {
+    id.toString();
+    return this.getPhotos().pipe(map(data => data.filter(d => {
+      return d.id === id;
+      })
+    ));
+  }
+
+  // currently not in use--using findPerson above and it works fine
+  getPerson(id) {
+    id.toString();
+    return this.http.get(this.url + `/${id}`, httpOptions);
+  }
+
+  // started refactoring here to try to create Person array in the service, not each individual component--not currently using this
+  populateList() {
+    return this.getPeople()
+    .pipe(map(data => data.map(r => {
+        return new Person(r.id, r.firstName, r.lastName, r.phone, r.knownAs, r.jobTitle, r.email, r.color);
+      }))
+    );
   }
 
   constructor(private http: HttpClient) { }

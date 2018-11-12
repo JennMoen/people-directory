@@ -1,8 +1,17 @@
-
-
+<div class="container">
 <div class="card">
-    <div class="card-header" [ngStyle]="{'background-color': person.color}">Header</div>
-    <img class="card-img-top" src="{{person.imgUrl}}" alt="Card image">
-    <div class="card-body">{{person.firstName}}</div>
+    <div class="card-header" [ngStyle]="{'background-color': person.color}">Employee Details for {{person.firstName}} {{person.lastName}}</div>
+    <img *ngIf="photo; else noImage" class="card-img-top" src="{{photo}}" alt="Card image">
+    <ng-template #noImage>
+        <td><img id='noImage' src='https://psychiatry.unm.edu/about/FacultyImages/Unknown-Male.jpg'></td>
+      </ng-template>
+    <div class="card-body">
+      <p>First name: {{person.firstName}}</p>
+      <p>Last name:  {{person.lastName}}</p>
+      <p>Phone number:  {{person.phone}}</p>
+      <p>Email:  {{person.email}}</p>
+      <p>Alias:  {{person.knownAs}}</p>
+    </div>
     <div class="card-footer"><button type="button" class="btn" (click)="goBack()">Go Back</button></div>
-  </div>
+</div>
+</div>
