@@ -1,4 +1,8 @@
-<p>
-  person-detail works!
-</p>
-<button type="button" class="btn" (click)="goBack()">Go Back</button>
+
+
+<div class="card">
+    <div class="card-header" [ngStyle]="{'background-color': person.color}">Header</div>
+    <img class="card-img-top" src="{{person.imgUrl}}" alt="Card image">
+    <div class="card-body">{{person.firstName}}</div>
+    <div class="card-footer"><button type="button" class="btn" (click)="goBack()">Go Back</button></div>
+  </div>

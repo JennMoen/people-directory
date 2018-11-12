@@ -1,7 +1,7 @@
 // people service for fetching data from API
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of} from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Person } from './person';
 import { map } from 'rxjs/operators';
 
@@ -28,8 +28,23 @@ export class PeopleService {
     return this.http.get<Array<any>>(this.url, httpOptions);
   }
 
+   populateList() {
+    return this.getPeople()
+    .pipe(map(data => data.map(r => {
+        return new Person(r.id, r.firstName, r.lastName, r.phone, r.knownAs, r.jobTitle, r.email, r.color);
+      }))
+    );
+  }
+
   getPhotos(): Observable<Array<any>> {
     return this.http.get<Array<any>>(this.url + this.imgQuery, httpOptions);
+  }
+
+  findPerson(id): Observable<object> {
+    return this.getPeople().pipe(map(data => data.filter(d => {
+      return d.id === id;
+    })
+    ));
   }
 
   constructor(private http: HttpClient) { }

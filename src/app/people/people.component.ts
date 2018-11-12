@@ -10,6 +10,7 @@ import { PeopleService } from '../people.service';
 export class PeopleComponent implements OnInit {
 
  people: Person[];
+ testArr;
 
  backupImage: 'https://psychiatry.unm.edu/about/FacultyImages/Unknown-Male.jpg';
 
@@ -41,11 +42,17 @@ export class PeopleComponent implements OnInit {
     });
   }
 
+  testMethod() {
+    this.peopleService.populateList()
+    .subscribe(ppl => console.log(ppl));
+    // console.log(this.testArr);
+  }
+
   constructor(private peopleService: PeopleService) { }
 
   ngOnInit() {
     this.getPeople();
-    // this.getPhotos();
+    this.testMethod();
   }
 
 }
