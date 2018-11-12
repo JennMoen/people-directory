@@ -10,27 +10,24 @@ import { PeopleService } from '../people.service';
 export class PeopleComponent implements OnInit {
 
  people: Person[];
- testArr: Person[];
- startAt = 0;
 
  backupImage: 'https://psychiatry.unm.edu/about/FacultyImages/Unknown-Male.jpg';
 
+    // this just does a basic call to return the first 50 db entries and gets their photos
   getPeople() {
-    return this.peopleService.getPeople()
+    return this.peopleService.loadNext(0)
     .subscribe(response => {
-      // console.log(response);
       this.people = response.map(r => {
         return new Person(r.id, r.firstName, r.lastName, r.phone, r.knownAs, r.jobTitle, r.email, r.color);
       });
-      this.getPhotos();
-      // console.log(this.people);
+      this.getPhotos(0);
     });
   }
 
-  getPhotos() {
-    return this.peopleService.getPhotos()
+  // calls for photo urls and matches them up to whatever list of people is loaded
+  getPhotos(num: number) {
+    return this.peopleService.getPhotos(num)
     .subscribe(response => {
-     // console.log(response);
       this.people.forEach(p => {
         response.forEach(r => {
           if ( p.id === r.id ) {
@@ -43,27 +40,33 @@ export class PeopleComponent implements OnInit {
     });
   }
 
+  // allows user to page through employees
   loadNext(n: number, event) {
-    // have captured innerHTML value so I know what range to load
     const amount = event.path[0].innerHTML;
     return this.peopleService.loadNext(n)
-    .subscribe(response => this.people = response.map(r => {
+    .subscribe(response => {
+      this.people = response.map(r => {
       return new Person(r.id, r.firstName, r.lastName, r.phone, r.knownAs, r.jobTitle, r.email, r.color);
-    }));
+      });
+    this.getPhotos(n);
+    });
   }
 
-  // here I'm just testing out something I'd written in the people service
-  testMethod() {
-    this.peopleService.populateList()
-    .subscribe(ppl => this.testArr = ppl);
-     console.log(this.testArr);
+  // basic sorting function for criteria user chooses to sort by
+  // so far I don't have the photos hooked up to this
+  sort(param: string) {
+    return this.peopleService.sort(param)
+    .subscribe(response => {
+      this.people = response.map(r => {
+      return new Person(r.id, r.firstName, r.lastName, r.phone, r.knownAs, r.jobTitle, r.email, r.color);
+      });
+    });
   }
 
   constructor(private peopleService: PeopleService) { }
 
   ngOnInit() {
     this.getPeople();
-    this.testMethod();
   }
 
 }

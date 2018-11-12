@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { Person } from './person';
 import { map } from 'rxjs/operators';
 
-// obviously this is not a secure place for auth data--just getting the list of employees to properly return first!
+// obviously this is not a secure place for auth data--would move elsewhere for production
 const httpOptions = {
   headers: new HttpHeaders({
     'x-auth-username':  'jmoen',
@@ -22,16 +22,24 @@ export class PeopleService {
 
   private url = 'https://demo.iofficeconnect.com/external/api/rest/v2/users';
 
-  private imgQuery = '?selector=image(description,large,medium,name,original,small,smallSquare)';
+  private imgQuery = 'selector=image(description,large,medium,name,original,small,smallSquare)';
 
+  // just returns first 50 db entries--basic call
   getPeople(): Observable<Array<any>> {
     return this.http.get<Array<any>>(this.url, httpOptions);
   }
 
-  getPhotos(): Observable<Array<any>> {
-    return this.http.get<Array<any>>(this.url + this.imgQuery, httpOptions);
+  // grabs photo urls for selected list of people
+  getPhotos(n: number): Observable<Array<any>> {
+    return this.http.get<Array<any>>(this.url + `?startAt=${n}&` + this.imgQuery, httpOptions);
   }
 
+  // linked to pagination to load next group of 50 people
+  loadNext(n: number) {
+    return this.http.get<Array<any>>(this.url + `?startAt=${n}`, httpOptions);
+  }
+
+  // this method worked at first but not after pagination was inserted--needs replaced
   findPerson(id): Observable<object> {
     return this.getPeople().pipe(map(data => data.filter(d => {
       return d.id === id;
@@ -39,23 +47,20 @@ export class PeopleService {
     ));
   }
 
-  getPersonPhoto(id) {
-    id.toString();
-    return this.getPhotos().pipe(map(data => data.filter(d => {
-      return d.id === id;
-      })
-    ));
-  }
-
-  // method for creating pagination when user clicks on "next" button
-  loadNext(n: number) {
-    return this.http.get<Array<any>>(this.url + `?startAt=${n}`, httpOptions);
-  }
-
-  // currently not in use--using findPerson above and it works fine
+  // should be good for replacing findPerson above
   getPerson(id) {
     id.toString();
     return this.http.get(this.url + `/${id}`, httpOptions);
+  }
+
+  // calls url with photo selector query for person's details page
+  getPersonPhoto(id) {
+    id.toString();
+    return this.http.get(this.url + `/${id}?` + this.imgQuery , httpOptions);
+  }
+
+  sort(criteria: string) {
+    return this.http.get<Array<any>>(this.url + `?orderBy=${criteria}`, httpOptions);
   }
 
   // started refactoring here to try to create Person array in the service, not each individual component--not currently using this

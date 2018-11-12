@@ -1,16 +1,19 @@
 <div class="container">
 <div class="card">
-    <div class="card-header">Employee Details for {{person.firstName}} {{person.lastName}}</div>
-    <img *ngIf="photo; else noImage" class="card-img-top personImage" src="{{photo}}" alt="Card image">
-    <ng-template #noImage>
-        <td><img id='noImage' src='https://psychiatry.unm.edu/about/FacultyImages/Unknown-Male.jpg' class="personImage"></td>
-      </ng-template>
+    <div class="card-header">Employee Details for {{person.firstName}} {{person.lastName}}
+    </div>
     <div class="card-body">
-      <p>First name: {{person.firstName}}</p>
-      <p>Last name:  {{person.lastName}}</p>
-      <p>Phone number:  {{person.phone}}</p>
-      <p>Email:  {{person.email}}</p>
-      <p>Alias:  {{person.knownAs}}</p>
+        <img *ngIf="photo; else noImage" class="card-img-top personImage" src="{{photo}}" alt="Card image">
+        <ng-template #noImage>
+            <td><img id='noImage' src='https://psychiatry.unm.edu/about/FacultyImages/Unknown-Male.jpg' class="personImage"></td>
+          </ng-template>
+          <ul class="list-group list-group-flush">
+              <li class="list-group-item">First name: {{person.firstName}}</li>
+              <li class="list-group-item">Last name:  {{person.lastName}}</li>
+              <li class="list-group-item">Phone number:  {{person.phone}}</li>
+              <li class="list-group-item">Email:  {{person.email}}</li>
+              <li class="list-group-item">Alias: {{person.knownAs}}</li>
+            </ul>
     </div>
     <div class="card-footer"><button type="button" class="btn" (click)="goBack()">Go Back</button></div>
 </div>

@@ -2,3 +2,12 @@
   height: 80px;
   width: 80px;
 }
+
+.page-header {
+  padding: 20px;
+  background-color: darkgray;
+}
+
+.nav-link {
+  cursor: pointer;
+}

@@ -1,15 +1,31 @@
 <div class="container">
   <div class="page-header">
-    <h2>Employee Directory</h2>
+    <h1>Employee Directory</h1>
   </div>
-  <nav>
-      <ul class="pagination">
-        <li class="page-item"><a class="page-link" (click)="loadNext(startAt, $event)">Previous</a></li>
-        <li class="page-item"><a class="page-link" (click)="loadNext(0, $event)">1</a></li>
-        <li class="page-item"><a class="page-link" (click)="loadNext(50, $event)">2</a></li>
-        <li class="page-item"><a class="page-link" (click)="loadNext(100, $event)">3</a></li>
-        <li class="page-item"><a class="page-link" (click)="loadNext(startAt, $event)">Next</a></li>
-      </ul>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand">Sort by:</a>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" (click)="sort('firstName')">First Name <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="sort('lastName')">Last Name</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"(click)="sort('jobTitle')">Job Title</a>
+          </li>
+        </ul>
+        <nav>
+            <ul class="pagination pagination-lg">
+              <!-- <li class="page-item"><a class="page-link" (click)="loadNext(startAt, $event)">Previous</a></li> -->
+              <li class="page-item"><a class="page-link" (click)="loadNext(0, $event)">1</a></li>
+              <li class="page-item"><a class="page-link" (click)="loadNext(50, $event)">2</a></li>
+              <li class="page-item"><a class="page-link" (click)="loadNext(100, $event)">3</a></li>
+              <!-- <li class="page-item"><a class="page-link" (click)="loadNext(startAt, $event)">Next</a></li> -->
+            </ul>
+          </nav>
+      </div>
     </nav>
   <table class="table table-striped">
     <thead>
@@ -36,11 +52,11 @@
   </table>
 </div>
 <nav>
-    <ul class="pagination">
-      <li class="page-item"><a class="page-link" (click)="loadNext(startAt, $event)">Previous</a></li>
+    <ul class="pagination pagination-lg">
+      <!-- <li class="page-item"><a class="page-link" (click)="loadNext(startAt, $event)">Previous</a></li> -->
       <li class="page-item"><a class="page-link" (click)="loadNext(0, $event)">1</a></li>
       <li class="page-item"><a class="page-link" (click)="loadNext(50, $event)">2</a></li>
       <li class="page-item"><a class="page-link" (click)="loadNext(100, $event)">3</a></li>
-      <li class="page-item"><a class="page-link" (click)="loadNext(startAt, $event)">Next</a></li>
+      <!-- <li class="page-item"><a class="page-link" (click)="loadNext(startAt, $event)">Next</a></li> -->
     </ul>
   </nav>

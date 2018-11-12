@@ -20,18 +20,34 @@ export class PersonDetailComponent implements OnInit {
     this.getPerson();
   }
 
+  // getPerson(): Person {
+  //   const id = +this.route.snapshot.paramMap.get('id');
+  //   console.log(`person with of ${id} found`);
+  //   this.peopleService.findPerson(id)
+  //    .subscribe(person =>
+  //   this.person = new Person(person[0].id,
+  //   person[0].firstName, person[0].lastName, person[0].phone, person[0].knownAs, person[0].jobTitle, person[0].email, person[0].color));
+  //   this.peopleService.getPersonPhoto(id)
+  //   .subscribe(pic => {
+  //     this.photo = 'https://demo.iofficeconnect.com' + pic[0].image.medium;
+  //     console.log(pic);
+  //     console.log(this.photo);
+  //   });
+  //   return this.person;
+  // }
+
   getPerson(): Person {
     const id = +this.route.snapshot.paramMap.get('id');
-    console.log(`person with of ${id} found`);
-    this.peopleService.findPerson(id)
-     .subscribe(person =>
-    this.person = new Person(person[0].id,
-    person[0].firstName, person[0].lastName, person[0].phone, person[0].knownAs, person[0].jobTitle, person[0].email, person[0].color));
+    this.peopleService.getPerson(id)
+    .subscribe(person => {
+      console.log(person);
+      this.person = new Person(person.id, person.firstName,
+        person.lastName, person.phone, person.knownAs, person.jobTitle, person.email, person.color);
+    });
     this.peopleService.getPersonPhoto(id)
     .subscribe(pic => {
-      this.photo = 'https://demo.iofficeconnect.com' + pic[0].image.medium;
+      this.photo = 'https://demo.iofficeconnect.com' + pic.image.medium;
       console.log(pic);
-      console.log(this.photo);
     });
     return this.person;
   }
