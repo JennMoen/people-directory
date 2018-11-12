@@ -1,7 +1,16 @@
-<div class="container-fluid">
+<div class="container">
   <div class="page-header">
     <h2>Employee Directory</h2>
   </div>
+  <nav>
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" (click)="loadNext(startAt, $event)">Previous</a></li>
+        <li class="page-item"><a class="page-link" (click)="loadNext(0, $event)">1</a></li>
+        <li class="page-item"><a class="page-link" (click)="loadNext(50, $event)">2</a></li>
+        <li class="page-item"><a class="page-link" (click)="loadNext(100, $event)">3</a></li>
+        <li class="page-item"><a class="page-link" (click)="loadNext(startAt, $event)">Next</a></li>
+      </ul>
+    </nav>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -26,3 +35,12 @@
     </tbody>
   </table>
 </div>
+<nav>
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" (click)="loadNext(startAt, $event)">Previous</a></li>
+      <li class="page-item"><a class="page-link" (click)="loadNext(0, $event)">1</a></li>
+      <li class="page-item"><a class="page-link" (click)="loadNext(50, $event)">2</a></li>
+      <li class="page-item"><a class="page-link" (click)="loadNext(100, $event)">3</a></li>
+      <li class="page-item"><a class="page-link" (click)="loadNext(startAt, $event)">Next</a></li>
+    </ul>
+  </nav>

@@ -47,6 +47,11 @@ export class PeopleService {
     ));
   }
 
+  // method for creating pagination when user clicks on "next" button
+  loadNext(n: number) {
+    return this.http.get<Array<any>>(this.url + `?startAt=${n}`, httpOptions);
+  }
+
   // currently not in use--using findPerson above and it works fine
   getPerson(id) {
     id.toString();

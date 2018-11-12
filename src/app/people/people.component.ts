@@ -11,6 +11,7 @@ export class PeopleComponent implements OnInit {
 
  people: Person[];
  testArr: Person[];
+ startAt = 0;
 
  backupImage: 'https://psychiatry.unm.edu/about/FacultyImages/Unknown-Male.jpg';
 
@@ -29,7 +30,7 @@ export class PeopleComponent implements OnInit {
   getPhotos() {
     return this.peopleService.getPhotos()
     .subscribe(response => {
-      console.log(response);
+     // console.log(response);
       this.people.forEach(p => {
         response.forEach(r => {
           if ( p.id === r.id ) {
@@ -42,6 +43,16 @@ export class PeopleComponent implements OnInit {
     });
   }
 
+  loadNext(n: number, event) {
+    // have captured innerHTML value so I know what range to load
+    const amount = event.path[0].innerHTML;
+    return this.peopleService.loadNext(n)
+    .subscribe(response => this.people = response.map(r => {
+      return new Person(r.id, r.firstName, r.lastName, r.phone, r.knownAs, r.jobTitle, r.email, r.color);
+    }));
+  }
+
+  // here I'm just testing out something I'd written in the people service
   testMethod() {
     this.peopleService.populateList()
     .subscribe(ppl => this.testArr = ppl);
