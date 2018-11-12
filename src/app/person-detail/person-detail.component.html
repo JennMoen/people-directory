@@ -1,34 +1,12 @@
-<!-- <div class="container">
-<div class="card">
-    <div class="card-header">Employee Details for {{person.firstName}} {{person.lastName}}
-    </div>
-    <div class="card-body">
-        <img *ngIf="photo; else noImage" class="card-img-top personImage" src="{{photo}}" alt="Card image">
-        <ng-template #noImage>
-            <td><img id='noImage' src='https://psychiatry.unm.edu/about/FacultyImages/Unknown-Male.jpg' class="personImage"></td>
-          </ng-template>
-          <ul class="list-group list-group-flush">
-              <li class="list-group-item">First name: {{person.firstName}}</li>
-              <li class="list-group-item">Last name:  {{person.lastName}}</li>
-              <li class="list-group-item">Job title:  {{person.jobTitle}}</li>
-              <li class="list-group-item">Phone number:  {{person.phone}}</li>
-              <li class="list-group-item">Email:  {{person.email}}</li>
-              <li class="list-group-item">Alias: {{person.knownAs}}</li>
-            </ul>
-    </div>
-    <div class="card-footer"><button type="button" class="btn" (click)="goBack()">Go Back</button></div>
-</div>
-</div> -->
-
-<div class="card">
-  <div class="row">
-    <div class="col-md-5">
-    <img *ngIf="photo; else noImage" class="card-img-top img-responsive" src="{{photo}}" alt="Card image cap">
+  <div class="card">
+      <div class = "row">
+  <div class ="col-md-6">
+    <img *ngIf="photo; else noImage" src="{{photo}}" class="personImage" alt="Card image cap">
     <ng-template #noImage>
-        <td><img id='noImage' src='https://psychiatry.unm.edu/about/FacultyImages/Unknown-Male.jpg' class="personImage"></td>
+        <td><img id='noImage' src='https://psychiatry.unm.edu/about/FacultyImages/Unknown-Male.jpg' class="altImage"></td>
       </ng-template>
-    </div>
-    <div class="col-md-5">
+      </div>
+    <div class="col-md-6">
     <div class="card-body">
       <h5 class="card-title">Employee Details</h5>
       <div class="card-text"><ul class="list-group list-group-flush">
@@ -39,10 +17,11 @@
           <li class="list-group-item">Email:  {{person.email}}</li>
           <li class="list-group-item">Alias: {{person.knownAs}}</li>
         </ul></div>
-      <button class="btn btn-primary" (click)="goBack()">Go back</button>
+      <button class="btn" (click)="goBack()">Go back</button>
+    </div>
     </div>
   </div>
-  </div>
-  </div>
+</div>
+
 
 <!-- [ngStyle]="{'background-color': person.color}" -->

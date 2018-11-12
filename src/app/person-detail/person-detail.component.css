@@ -1,9 +1,22 @@
 .personImage {
+  width: 95%;
+  height: 95%;
+  max-height: 450px;
+  padding: 20px;
+  border: 2px darkgrey solid;
+}
+
+.altImage {
   width: 500px;
   height: 400px;
+}
+
+#infoCard {
   padding: 20px;
 }
 
-.container {
-  padding: 20px;
+.btn {
+  background-color: #108F8F;
+  color: white;
+  margin: 20px;
 }

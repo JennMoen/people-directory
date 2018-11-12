@@ -5,9 +5,15 @@
 
 .page-header {
   padding: 20px;
-  background-color: darkgray;
+  /* background-color: #108F8F; */
 }
 
 .nav-link {
   cursor: pointer;
 }
+
+#logo {
+  height: 30px;
+  width: 80px;
+}
+
