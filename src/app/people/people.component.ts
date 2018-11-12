@@ -11,6 +11,7 @@ export class PeopleComponent implements OnInit {
 
  people: Person[];
  selectedCriteria: string;
+ loadRange = 0;
 
  backupImage: 'https://psychiatry.unm.edu/about/FacultyImages/Unknown-Male.jpg';
 
@@ -41,18 +42,37 @@ export class PeopleComponent implements OnInit {
     });
   }
 
-  // allows user to page through employees
+  //  the above method was working great until I added sort functionality!
+  // I'll need to probably combine these two methods somehow as a next step
+  sortedPhotos(criteria, num) {
+    return this.peopleService.sortedPhotos(criteria, num)
+    .subscribe(response => {
+      this.people.forEach(p => {
+        response.forEach(r => {
+          if ( p.id === r.id ) {
+            if (r.image !== undefined) {
+            p.imgUrl = 'https://demo.iofficeconnect.com' + r.image.smallSquare;
+            }
+          }
+        });
+      });
+    });
+  }
+
+  // allows user to page through employees--it also accounts for whether or not they've selected a criteria to search by prior to paging
   loadNext(n: number, event) {
+    this.loadRange = n;
+    console.log(this.selectedCriteria);
     if (this.selectedCriteria !== undefined) {
       this.peopleService.sortAndLoad(this.selectedCriteria, n)
       .subscribe(response => {
         this.people = response.map(r => {
         return new Person(r.id, r.firstName, r.lastName, r.phone, r.knownAs, r.jobTitle, r.email, r.color);
         });
-      this.getPhotos(n);
+      this.sortedPhotos(this.selectedCriteria, n);
       });
-    }
-    const amount = event.path[0].innerHTML;
+    } else {
+    // const amount = event.path[0].innerHTML;
     return this.peopleService.loadNext(n)
     .subscribe(response => {
       this.people = response.map(r => {
@@ -60,10 +80,11 @@ export class PeopleComponent implements OnInit {
       });
     this.getPhotos(n);
     });
+    }
   }
 
   // basic sorting function for criteria user chooses to sort by
-  // so far I don't have the photos hooked up to this
+  // changing the sort will throw it back to page 1
   sort(param: string) {
     this.selectedCriteria = param;
     return this.peopleService.sort(param)
@@ -71,6 +92,7 @@ export class PeopleComponent implements OnInit {
       this.people = response.map(r => {
       return new Person(r.id, r.firstName, r.lastName, r.phone, r.knownAs, r.jobTitle, r.email, r.color);
       });
+      this.sortedPhotos(param, 0);
     });
   }
 

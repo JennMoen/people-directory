@@ -24,7 +24,8 @@ export class PeopleService {
 
   private imgQuery = 'selector=image(description,large,medium,name,original,small,smallSquare)';
 
-  // just returns first 50 db entries--basic call
+  //  just returns first 50 db entries--basic call--this can eventually
+  //  be deleted because the loadNext function can be used with an argument of 0
   getPeople(): Observable<Array<any>> {
     return this.http.get<Array<any>>(this.url, httpOptions);
   }
@@ -39,7 +40,8 @@ export class PeopleService {
     return this.http.get<Array<any>>(this.url + `?startAt=${n}`, httpOptions);
   }
 
-  // this method worked at first but not after pagination was inserted--needs replaced
+  // this method worked at first but not after pagination was inserted--will
+  // get replaced with the getPerson method below since it just grabs user by id
   findPerson(id) {
     return this.getPeople().pipe(map(data => data.filter(d => {
       return d.id === id;
@@ -59,16 +61,22 @@ export class PeopleService {
     return this.http.get(this.url + `/${id}?` + this.imgQuery , httpOptions);
   }
 
+  // makes call with orderBy paramater
   sort(criteria: string) {
     return this.http.get<Array<any>>(this.url + `?orderBy=${criteria}`, httpOptions);
   }
 
-  // I know this is possibly redundant so it could be simplified
+  // I know this is possibly redundant so it could be simplified since I already have both a sort and a load method
   sortAndLoad(criteria: string, starts: number) {
     return this.http.get<Array<any>>(this.url + `?orderBy=${criteria}&startAt=${starts}`, httpOptions);
   }
 
-  // started refactoring here to try to create Person array in the service, not each individual component--not currently using this
+  // again, I know i probably could have found a better way for this than writing another method
+  sortedPhotos(criteria: string, starts: number) {
+    return this.http.get<Array<any>>(this.url + `?orderBy=${criteria}&startAt=${starts}&` + this.imgQuery, httpOptions);
+  }
+
+  // NOTE: started refactoring here to try to create Person array in the service, not each individual component--not currently using this
   populateList() {
     return this.getPeople()
     .pipe(map(data => data.map(r => {
